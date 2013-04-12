@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link type="text/plain" rel="author" href="/humans.txt"/>
+    <!-- modify here if your humanstxt not in /humans.txt -->
+    <!-- Le styles -->
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+    <style>
+        h2 {
+            clear: both
+        }
+
+        article {
+            background-color: lightgray;
+            margin-bottom: 10px;
+            min-height: 120px !important;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            float: left;
+        }
+        .twitter, .google_plus {
+            display: block;
+        }
+        .twitter:before {
+            content: '@';
+            padding-left: 20px;
+            background: url(https://twitter.com/images/resources/twitter-bird-16x16.png) no-repeat;
+        }
+        .google_plus:before {
+            content: '+';
+            padding-left: 20px;
+            background: url(https://ssl.gstatic.com/images/icons/gplus-16.png) no-repeat;
+        }
+        .site {
+            padding-left: 20px;
+            background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/link.png) no-repeat;
+        }
+        .field, .role {
+            display: block;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        h3 {
+            display: inline;
+        }
+    </style>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a id="brand" class="brand" href="/">Project name</a>
+
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a>Humans</a></li>
+                    <!--
+                    <li><a href="#contact">Contact</a></li>-->
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="well sidebar-nav">
+                <ul id="categories" class="nav nav-list"></ul>
+            </div>
+        </div>
+        <section id="humans" class="span9">
+            <div class="hero-unit">
+                <h1>开发组名单</h1>
+
+                <p>这里列出了对 <span class='brand'></span> 有过直接代码或资源贡献的人员，感谢他们的支持。</p>
+
+                <p><a href="/join" class="btn btn-primary btn-large">加入我们 &raquo;</a></p>
+            </div>
+        </section>
+    </div>
+
+    <hr>
+
+    <footer>
+        <p>&copy; <span class="brand"></span> 2013</p>
+    </footer>
+
+</div>
+<!--/.fluid-container-->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+<script src="//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+<script>
+
+    var google_plus_avatar_loading = 'https://ssl.gstatic.com/s2/profiles/images/silhouette120.png'
+    var google_plus_api_key = 'AIzaSyBZw7nZElp2l2BIiRdMgeFp-bhKAuaiIcY'
+
+    $('.brand').html(window.location.hostname)
+    $.get($('link[rel=author]').attr('href'), function (humanstxt) {
+        var category = window.location.hostname
+        var human = null
+        $.each(humanstxt.replace("\r\n", "\n").split("\n"), function (index, line) {
+            var matched;
+            if (matched = line.match(/^\s*\/\*\s*(.+)\s*\*\/\s*$/)) {
+                category = matched[1]
+            } else if (matched = line.match(/^\s*(.+?)\:\s*(.+)\s*$/)) {
+                if (category) {
+                    $('<li/>', {class: 'nav-header', text: category}).appendTo('#categories')
+                    $('<h2/>', {id: category, text: category}).appendTo('#humans')
+                    category = null
+                }
+
+                if (!human) { /* first line */
+                    human = {name: matched[2], role: matched[1]}
+                    $('<li/>').append($('<a/>', {href: '#' + human.name, text: human.name})).appendTo('#categories')
+
+                } else {
+                    var key = matched[1]
+                    var value = matched[2]
+                    switch (key.toLowerCase()) {
+                        case 'twitter':
+                            if (value[0] == '@') {
+                                value = value.substr(1)
+                            }
+                            if (!human.avatar) {
+                                human.avatar = 'https://api.twitter.com/1/users/profile_image?screen_name=' + value + '&size=original'
+                            }
+                            human.twitter = value
+                            break
+                        case 'email':
+                        case 'contact':
+                            human.email = value.replace(/\s*\[at\]\s*/, '@')
+                            if (!human.avatar) {
+                                human.avatar = 'https://www.gravatar.com/avatar/' + CryptoJS.MD5(human.email.toLocaleLowerCase()) + '?size=120'
+                            }
+                            if(!human.site){
+                                human.site = 'mailto:' + human.email
+                            }
+                            break
+                        case 'site':
+                            human.site = value
+                            break
+                        case 'google+':
+                            matched = value.match(/^\+?(.*?)\s*(?:\((\d+)\))?$/)
+                            human.google_plus = matched[1]
+                            human.google_plus_id = matched[2]
+                            if (!human.avatar && human.google_plus_id) {
+                                human.avatar = 'https://ssl.gstatic.com/s2/profiles/images/silhouette120.png'
+                            }
+                            break
+                        case 'avatar':
+                            human.avatar = value
+                            break
+                        default:
+                            human[key] = value
+                    }
+                }
+            } else if (matched = line.match(/^\s*$/)) {
+                if (human) {
+                    $('<article/>', {id: human.name, class: "span4"}).append([
+                        human.avatar ? $('<img/>', {src: human.avatar, class: 'avatar'}) : null,
+                        $('<h3/>').append($('<a/>', {href: human.site, text: human.name})),
+                        human.email ? $('<a/>', {class: 'icon-envelope', href: 'mailto:'+human.email}) : null,
+                        $('<span/>', {text: human.role, class: 'role'}),
+                        human.twitter ? $('<a/>', {class: 'field twitter', href: "https://twitter.com/" + human.twitter, text: human.twitter}) : null,
+                        human.google_plus ? $('<a/>', {class: 'field google_plus', href: "https://plus.google.com/s/" + human.google_plus, text: human.google_plus}) : null,
+                        human.site && human.site.slice(0,7) != 'mailto:' ? $('<a/>', {class: 'field site', href: human.site, text: human.site}) : null
+                    ]).appendTo('#humans')
+                    if (human.google_plus_id) {
+                        var element_id = human.name.replace(/[^a-zA-Z0-9\-\_\u00A0-\uFFFF]/g, function(char){return '\\'+char})
+                        $.get('https://www.googleapis.com/plus/v1/people/' + human.google_plus_id + '?key=' + google_plus_api_key, function (profile) {
+                            $('#' + element_id + ' .google_plus').html(profile.displayName)
+                            $('#' + element_id + ' .google_plus').attr('href', profile.url)
+                            if ($('#' + element_id + ' .avatar').attr('src') == google_plus_avatar_loading) {
+                                $('#' + element_id + ' .avatar').attr('src', profile.image.url + '&sz=120')
+                            }
+                        })
+                    }
+                    human = null
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>
