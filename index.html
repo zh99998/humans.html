@@ -167,9 +167,9 @@
         var human = null
         $.each(humanstxt.replace("\r\n", "\n").split("\n"), function (index, line) {
             var matched;
-            if (matched = line.match(/^\s*\/\*\s*(.+)\s*\*\/\s*$/)) {
+            if (matched = line.match(/^\s*\/\*\s*(.+?)\s*\*\/\s*$/)) {
                 category = matched[1]
-            } else if (matched = line.match(/^\s*(.+?)\:\s*(.+)\s*$/)) {
+            } else if (matched = line.match(/^\s*(.+?)\:\s*(.+?)\s*$/)) {
                 if (category) {
                     $('<li/>', {class: 'nav-header', text: category}).appendTo('#categories')
                     $('<h2/>', {id: category, text: category}).appendTo('#humans')
