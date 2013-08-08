@@ -169,7 +169,7 @@
             } else if (matched = line.match(/^\s*$/)) {
                 if (human) {
                     $('<article/>', {id: human.name, class: "span4"}).append([
-                        human.avatar ? $('<img/>', {src: human.avatar, class: 'avatar'}) : null,
+                        human.avatar ? $('<img/>', {src: human.avatar, class: 'avatar'}) . $('<div class="cover"></div>') : null,
                         $('<h3/>').append($('<a/>', {href: human.site, text: human.name})),
                         human.email ? $('<a/>', {class: 'icon-envelope', href: 'mailto:'+human.email}) : null,
                         $('<span/>', {text: human.role, class: 'role'}),
@@ -193,7 +193,6 @@
         })
     })
 
-    $(".avatar").append('<div class="cover">');
 </script>
 </body>
 </html>
