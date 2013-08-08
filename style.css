@@ -1,26 +1,34 @@
 body {
     padding-top: 60px;
     padding-bottom: 40px;
+    font-family: 微软雅黑,'Microsoft Yahei',Arial,sans-serif;
 }
+a { text-decoration: none !important; color: #111 }
 
 .sidebar-nav {
     padding: 9px 0;
 }
 
 h2 {
-    clear: both
+    clear: both;
 }
 
 article {
-    background-color: lightgray;
+    background-color: #FFF;
     margin-bottom: 10px;
     min-height: 120px !important;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.25), 0 0 50px rgba(0,0,0,0.1) inset;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid #CCC;
+    padding-right: 10px;
 }
 
 .avatar {
     width: 120px;
     height: 120px;
     float: left;
+    box-shadow: 0 0 5px;
 }
 .twitter, .google_plus {
     display: block;
@@ -35,18 +43,24 @@ article {
     padding-left: 20px;
     background: url(https://ssl.gstatic.com/images/icons/gplus-16.png) no-repeat;
 }
-.site {
-    padding-left: 20px;
-    background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/link.png) no-repeat;
-}
 .field, .role {
     display: block;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    padding-left: 10px;
+}
+
+.site {
+    display: block;
+    padding-left: 20px;
+    margin-left: 130px;
+    background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/link.png) no-repeat;
 }
 h3 {
     display: inline;
+    padding-left: 10px;
+    font-size: 20px;
 }
 
 @media (max-width: 980px) {
