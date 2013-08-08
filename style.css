@@ -3,7 +3,14 @@ body {
     padding-bottom: 40px;
     font-family: 微软雅黑,'Microsoft Yahei',Arial,sans-serif;
 }
-a { text-decoration: none !important; color: #111 }
+a { 
+    text-decoration: none !important; 
+    color: #111;
+    transition: all .8s;
+    -moz-transition: all .8s;
+    -webkit-transition: all .8s;
+    -o-transition: all .8s;
+}
 
 .sidebar-nav {
     padding: 9px 0;
@@ -30,6 +37,28 @@ article {
     height: 120px;
     float: left;
     box-shadow: 0 0 5px;
+}
+.cover { 
+    display: block;
+    width: 120px;
+    height: 120px;
+    background: #000; 
+    position: absolute;
+    filter: alpha(opacity=30); /* internet explorer */  
+    -khtml-opacity: 0.3;      /* khtml, old safari */  
+    -moz-opacity: 0.3;       /* mozilla, netscape */  
+    opacity: 0.3;           /* fx, safari, opera */ 
+    transition: all .8s;
+    -moz-transition: all .8s;
+    -webkit-transition: all .8s;
+    -o-transition: all .8s;  
+}
+.cover:hover {
+    filter: alpha(opacity=0); /* internet explorer */  
+    -khtml-opacity: 0;      /* khtml, old safari */  
+    -moz-opacity: 0;       /* mozilla, netscape */  
+    opacity: 0;           /* fx, safari, opera */ 
+    
 }
 .twitter, .google_plus {
     display: block;
